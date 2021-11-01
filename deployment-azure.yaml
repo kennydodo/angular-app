@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: angular-deployment
+spec:
+    replicas: 5
+    selector:
+        matchLabels:
+            app: angular
+    template:
+        metadata:
+            labels:
+                app: angular
+        spec:
+            containers:
+                - name: angular
+                  image: kennydodo/angular-app:v1
+                  ports:
+                      - containerPort: 80
+# https://kubernete.io/docs/concepts/services-networking/services
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: anuglar-service
+spec:
+    ports:
+        - port: 80
+    selector:
+        app: angular
